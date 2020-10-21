@@ -11,6 +11,7 @@ pool:
   demands:
     - npm
 
+
 variables:
   buildConfiguration: 'Release'
   wwwrootDir: 'Tailspin.SpaceGame.Web/wwwroot'
@@ -21,6 +22,7 @@ steps:
   displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
   inputs:
     version: '$(dotnetSdkVersion)'
+
 - task: Npm@1
   displayName: 'Run npm install'
   inputs:
@@ -53,7 +55,6 @@ steps:
   displayName: 'Publish the project - $(buildConfiguration)'
   inputs:
     command: 'publish'
-
     projects: '**/*.csproj'
     publishWebProjects: false
     arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
@@ -62,5 +63,7 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
   condition: succeeded()
+
+
 
 
